@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ayomide's Birthday</title>
+  <style>
+    :root{
+      --bg:#f3fff6;
+      --accent-1:#2e7d32;
+      --accent-2:#66bb6a;
+      --accent-3:#a5d6a7;
+      --muted:#50635a;
+      --card:#ffffff;
+      --max-width:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,'Segoe UI',Roboto,Arial;background:linear-gradient(180deg,var(--bg),#fff);color:var(--muted)}
+    header{padding:18px 12px;text-align:center}
+    h1{margin:0;font-size:clamp(20px,4.2vw,34px);color:var(--accent-1)}
+    .sub{color:var(--muted);margin-top:6px;font-size:14px}
+    .wrap{max-width:var(--max-width);margin:8px auto;padding:6px 12px}
+
+    /* Card */
+    .card{background:var(--card);border-radius:10px;padding:14px;box-shadow:0 6px 18px rgba(20,20,20,0.035)}
+
+    /* --- SLIDESHOW / MEDIA --- */
+    .media-frame{background:transparent;padding:0}
+    .slideshow-container{
+      width:100%;
+      max-width:100%;
+      margin:0 auto;
+      position:relative;
+      border-radius:10px;
+      overflow:hidden;
+      /* responsive locked height: will not let a replaced image push layout down */
+      height: clamp(280px, 46vh, 520px);
+      background:transparent;
+      display:block;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* slides are normal flex children (100% width each) */
+    #slides{display:flex;height:100%;width:100%;transition:transform .55s cubic-bezier(.2,.9,.24,1)}
+    #slides > *{flex:0 0 100%;min-width:100%;display:flex;align-items:center;justify-content:center;background:transparent}
+
+    /* images and video inside the slides */
+    #slides img, #slides video,
+    /* and any image/video placed inside a slideshow-container (standalone video) */
+    .slideshow-container img, .slideshow-container video {
+      width:100%;
+      height:100%;
+      object-fit:contain; /* keeps whole image visible, no zoom */
+      display:block;
+      background:transparent;
+    }
+
+    /* prev/next buttons */
+    .slideshow-controls{position:absolute;inset:0;pointer-events:none}
+    .slideshow-controls .nav{
+      position:absolute;top:50%;transform:translateY(-50%);
+      width:44px;height:44px;border-radius:999px;border:0;background:rgba(255,255,255,0.92);
+      display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;pointer-events:auto;color:var(--accent-1);z-index:6;
+      box-shadow:0 6px 12px rgba(10,10,10,0.08);
+    }
+    .nav.left{left:12px}.nav.right{right:12px}
+
+    /* site controls and buttons */
+    .controls{display:flex;gap:10px;align-items:center;justify-content:center}
+    .btn-primary{background:linear-gradient(180deg,var(--accent-2),var(--accent-1));color:#fff;padding:10px 14px;border-radius:10px;border:0;cursor:pointer}
+
+    /* prize wheel and reveal box */
+    .spin-card{display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px}
+    .wheel-wrap{width:100%;max-width:340px;height:340px;position:relative;margin:6px auto}
+    .wheel{width:100%;height:100%;border-radius:50%;overflow:hidden;transform:rotate(0deg)}
+    .pointer{position:absolute;left:50%;top:-8px;transform:translateX(-50%);width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:20px solid var(--accent-1);z-index:6}
+    .spin-btn{margin-top:6px;padding:10px 16px;border-radius:10px;border:0;background:linear-gradient(180deg,var(--accent-2),var(--accent-1));color:white;cursor:pointer}
+    .spin-btn:disabled{opacity:0.5;cursor:not-allowed}
+
+    .prize-box{max-width:420px;margin:12px auto;padding:14px;border-radius:10px;border:2px dashed var(--accent-2);background:linear-gradient(180deg,#fff,#f7fff7);display:none;text-align:center}
+    .prize-box.show{display:block;animation:pop .5s cubic-bezier(.2,.8,.2,1)}
+
+    /* wishes */
+    .wishes-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+    .wish-card{background:linear-gradient(180deg,#fff,var(--accent-3));border-radius:12px;padding:18px;border:1px solid rgba(0,0,0,0.04);box-shadow:0 8px 26px rgba(46,125,50,0.06);min-height:140px;font-size:15px;line-height:1.6;color:var(--muted)}
+
+    @media(min-width:880px){
+      .wrap{padding:12px 18px}
+      .wishes-grid{grid-template-columns:1fr 1fr}
+    }
+
+    @keyframes pop{0%{transform:scale(.85);opacity:0}60%{transform:scale(1.05);opacity:1}100%{transform:scale(1);opacity:1}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Happy 20th Birthday, Sis! 🌿</h1>
+    <div class="sub"> <strong> Welcome to the begining of another decade</strong></div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- slideshow (locked responsive height) -->
+    <div class="card media-frame fade-in">
+      <div class="slideshow-container mediaBox" id="slideshowBox">
+        <div id="slides">
+          <!-- replace these images with your own; they will be scaled to fit -->
+          <img src="Ayo1.jpg" alt="slide 1">
+          <img src="Ayo2.jpg" alt="slide 2">
+          <img src="Ayo3.jpg" alt="slide 3">
+          <img src="Ayo4.jpg" alt="slide 4">
+          <img src="Ayo5.jpg" alt="slide 5">
+          <img src="Ayo7.jpg" alt="slide 6">
+          <img src="Ayo8.jpg" alt="slide 7">
+          <img src="photos/photo8.jpg" alt="slide 8">
+          <img src="photos/photo9.jpg" alt="slide 9">
+          <img src="photos/photo10.jpg" alt="slide 10">
+          <img src="photos/photo11.jpg" alt="slide 11">
+          <img src="photos/photo12.jpg" alt="slide 12">
+        </div>
+
+        <div class="slideshow-controls">
+          <button class="nav left" id="prev" aria-label="Previous">❮</button>
+          <button class="nav right" id="next" aria-label="Next">❯</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- wishes -->
+    <div class="card fade-in" style="margin-top:12px">
+      <h3 style="margin:0 0 10px 0;color:var(--accent-1)">Wishes from Loved Ones</h3>
+      <div class="wishes-grid">
+        <div class="wish-card"><h4>From Mom</h4><p>My dearest daughter, watching you grow into the beautiful person you are has been my greatest joy... Happy Birthday my Daughter</p></div>
+        <div class="wish-card"><h4>From Dad</h4><p>Happy 20th, champ. I am proud of your quiet courage...</p></div>
+        <div class="wish-card"><h4>From Oluwatobi</h4><p>To my partner in crime, the family's bully, the chef, watching you grow is something I am proud of. Here's to two decades of mischief and memories...</p></div>
+        <div class="wish-card"><h4>From Toluwase</h4><p>You've always had that spark — the kind that warms a room...</p></div>
+        <div class="wish-card"><h4>From Testimony</h4><p>On this milestone, I hope you know how deeply you are admired...</p></div>
+      </div>
+    </div>
+
+    <!-- video (matches slideshow box height, will scale to fit) -->
+    <div class="card fade-in" style="margin-top:12px">
+      <h3 style="margin:10px 0 8px 0;color:var(--accent-1)">Video Memory</h3>
+      <div class="slideshow-container mediaBox" style="height: clamp(280px, 46vh, 520px);">
+        <!-- standalone video is now matched by the CSS selector and will fit -->
+        <video id="theVideo" controls playsinline poster="videos/video1-poster.jpg">
+          <source src="Ayo6.mp4" type="video/mp4">
+          Your browser doesn't support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <!-- reveal -->
+    <div class="card fade-in" style="text-align:center;margin-top:12px">
+      <h3 style="margin-top:0;color:var(--accent-1)">Surprise</h3>
+      <p style="margin:6px 0 12px;color:var(--muted)">Reveal a special message.</p>
+      <div class="controls">
+        <button class="btn-primary" id="revealBtn">Reveal surprise 🎁</button>
+      </div>
+    </div>
+
+    <!-- spin -->
+    <div class="card fade-in" style="text-align:center;margin-top:12px">
+      <h3 style="margin-top:0;color:var(--accent-1)">Spin to Win yourself a Birthday Gift</h3>
+      <div class="spin-card">
+        <div class="wheel-wrap" style="position:relative">
+          <div class="pointer" aria-hidden="true"></div>
+          <div id="wheel" class="wheel" role="img" aria-label="Prize wheel"></div>
+        </div>
+
+        <button id="spinBtn" class="spin-btn">Spin the Wheel</button>
+        <div class="prize-display" id="prizeDisplay" style="margin-top:8px;font-weight:700;color:var(--accent-1)">Good luck!</div>
+        <div class="prize-box" id="prizeBox"><div id="prizeBoxContent" style="font-weight:700;color:var(--accent-1)"></div></div>
+      </div>
+    </div>
+
+    <footer style="margin-top:18px;text-align:center">Made with ❤️</footer>
+  </main>
+
+  <!-- modal used by reveal -->
+  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;padding:20px;z-index:9999">
+    <div id="modalCard" style="max-width:760px;width:100%;background:white;padding:18px;border-radius:12px;position:relative;text-align:center">
+      <button id="closeModal" style="position:absolute;right:12px;top:12px;border:0;background:transparent;font-size:18px;cursor:pointer">✖</button>
+      <div id="modalInner"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------------- SLIDESHOW ---------------- */
+    const slides = document.getElementById('slides');
+    const total = slides.children.length;
+    let idx = 0;
+
+    function show(i){
+      if(i < 0) i = total - 1;
+      if(i >= total) i = 0;
+      idx = i;
+      slides.style.transform = `translateX(${ - idx * 100 }%)`;
+    }
+
+    // Prev / Next buttons
+    document.getElementById('prev').addEventListener('click', ()=> show(idx - 1));
+    document.getElementById('next').addEventListener('click', ()=> show(idx + 1));
+
+    // touch behavior (swipe)
+    const box = document.getElementById('slideshowBox');
+    let startX = 0, moving = false;
+    box.addEventListener('touchstart', e => { startX = e.touches[0].clientX; moving = true; });
+    box.addEventListener('touchmove', e => {
+      if(!moving) return;
+      const dx = e.touches[0].clientX - startX;
+      if(Math.abs(dx) > 50){
+        if(dx > 0) show(idx - 1);
+        else show(idx + 1);
+        moving = false;
+      }
+    });
+    box.addEventListener('touchend', ()=> moving = false);
+
+    // auto-cycle, pause on hover
+    let auto = setInterval(()=> show(idx + 1), 4500);
+    box.addEventListener('mouseenter', ()=> clearInterval(auto));
+    box.addEventListener('mouseleave', ()=> auto = setInterval(()=> show(idx + 1), 4500));
+
+    /* ---------------- REVEAL (confetti modal) ---------------- */
+    const modal = document.getElementById('modal');
+    const modalInner = document.getElementById('modalInner');
+    document.getElementById('revealBtn').addEventListener('click', ()=> {
+      modalInner.innerHTML = `<div style="animation:pop .6s both"><h2 style="color:var(--accent-1)">Surprise! 🎁</h2><p style="margin-top:8px;color:var(--muted)">Happy 20th — here's to love, laughter and late-night chats.</p></div>`;
+      modal.style.display = 'flex';
+      runConfetti();
+    });
+    document.getElementById('closeModal').addEventListener('click', ()=> modal.style.display = 'none');
+
+    function runConfetti(){
+      const count = 60;
+      const emojis = ['✨','🎉','🎈','💖','🌿','🍰','🥳'];
+      for(let i=0;i<count;i++){
+        const el = document.createElement('div');
+        el.style.position = 'fixed';
+        el.style.left = (10 + Math.random() * 80) + '%';
+        el.style.top = '-10px';
+        el.style.fontSize = (10 + Math.random()*18) + 'px';
+        el.style.zIndex = 9999;
+        el.style.userSelect = 'none';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        document.body.appendChild(el);
+        const t = setInterval(()=> {
+          const top = parseFloat(el.style.top);
+          el.style.top = (top + 3 + Math.random()*6) + 'px';
+          el.style.left = (parseFloat(el.style.left) + (Math.random()*6-3)) + '%';
+          if(parseFloat(el.style.top) > window.innerHeight + 50){ clearInterval(t); el.remove(); }
+        }, 24);
+      }
+    }
+
+    /* ---------------- SPIN WHEEL ---------------- */
+    const wheel = document.getElementById('wheel');
+    const spinBtn = document.getElementById('spinBtn');
+    const prizeDisplay = document.getElementById('prizeDisplay');
+    const prizeBox = document.getElementById('prizeBox');
+    const prizeBoxContent = document.getElementById('prizeBoxContent');
+
+    const prizes = [
+      {label:'10 GB Data', color:'#2e7d32'},
+      {label:'A Green Dress', color:'#388e3c'},
+      {label:'20,000 Naira', color:'#66bb6a'},
+      {label:'Power Bank', color:'#a5d6a7'},
+      {label:'5K 4 stomach investment' , color:'#81c784'},
+      {label:'Sweet Message', color:'#a5d6a7'},
+      {label:'2,000 airtime', color:'#66bb6a'},
+      {label:'Slippers', color:'#4caf50'}
+    ];
+
+    function drawWheel(){
+      const size = 340;
+      const cx = size/2;
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS,'svg');
+      svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+      svg.setAttribute('width','100%');
+      svg.setAttribute('height','100%');
+      const group = document.createElementNS(svgNS,'g');
+      group.setAttribute('transform', `translate(${cx},${cx})`);
+      const sliceAngle = 360 / prizes.length;
+
+      prizes.forEach((p,i) => {
+        const start = (i * sliceAngle) * Math.PI/180;
+        const end = ((i+1) * sliceAngle) * Math.PI/180;
+        const x1 = Math.cos(start) * cx; const y1 = Math.sin(start) * cx;
+        const x2 = Math.cos(end) * cx; const y2 = Math.sin(end) * cx;
+        const path = document.createElementNS(svgNS,'path');
+        const d = `M 0 0 L ${x1} ${y1} A ${cx} ${cx} 0 0 1 ${x2} ${y2} Z`;
+        path.setAttribute('d', d);
+        path.setAttribute('fill', p.color);
+        group.appendChild(path);
+
+        // label
+        const midAngle = ((i + 0.5) * sliceAngle) * Math.PI/180;
+        const lx = Math.cos(midAngle) * (cx * 0.62);
+        const ly = Math.sin(midAngle) * (cx * 0.62);
+        const text = document.createElementNS(svgNS,'text');
+        text.setAttribute('x', lx);
+        text.setAttribute('y', ly);
+        text.setAttribute('fill', '#fff');
+        text.setAttribute('font-size', '12');
+        text.setAttribute('font-weight', '700');
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('alignment-baseline', 'middle');
+        text.textContent = p.label;
+        group.appendChild(text);
+      });
+
+      svg.appendChild(group);
+      while(wheel.firstChild) wheel.removeChild(wheel.firstChild);
+      wheel.appendChild(svg);
+    }
+    drawWheel();
+
+    // one-time spin with exact chosen index used for reveal
+    let spun = false;
+    spinBtn.addEventListener('click', () => {
+      if(spun) return;
+      spun = true;
+      spinBtn.disabled = true;
+      prizeDisplay.textContent = 'Spinning...';
+
+      const spins = Math.floor(Math.random()*3) + 4; // 4-6 full spins
+      const chosenIndex = Math.floor(Math.random() * prizes.length);
+      const sliceAngle = 360 / prizes.length;
+      const mid = (chosenIndex + 0.5) * sliceAngle; // center angle of chosen slice
+
+      // compute final rotation so the chosen slice center ends at 12 o'clock (top)
+      // 270 degrees corresponds to the top for our SVG coordinate alignment
+      const finalAngleMod = ((270 - mid) % 360 + 360) % 360;
+      const finalAngle = spins * 360 + finalAngleMod;
+
+      wheel.style.transition = 'transform 5s cubic-bezier(.2,.9,.2,1)';
+      wheel.style.transform = `rotate(${finalAngle}deg)`;
+
+      setTimeout(() => {
+        const prize = prizes[chosenIndex];
+        prizeDisplay.textContent = prize.label;
+        if(prizeBox && prizeBoxContent){ prizeBoxContent.textContent = prize.label; prizeBox.classList.add('show'); }
+        runConfetti();
+
+        // normalize final wheel rotation (snap)
+        wheel.style.transition = 'none';
+        wheel.style.transform = `rotate(${finalAngleMod}deg)`;
+      }, 5200);
+    });
+
+    window.addEventListener('resize', ()=> drawWheel());
+  </script>
+</body>
+</html>
